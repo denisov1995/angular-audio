@@ -1,0 +1,30 @@
+<mat-table [dataSource]="sounds">
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+    <mat-cell *matCellDef="let sound"> {{ sound.id }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Наименование звука </mat-header-cell>
+    <mat-cell *matCellDef="let sound"> {{ sound.name }} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="fileName">
+    <mat-header-cell *matHeaderCellDef> Имя файла звукозаписи </mat-header-cell>
+    <mat-cell *matCellDef="let sound"> {{ sound.fileName }} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="playSound(row)"
+  ></mat-row>
+</mat-table>
+
+
+<div *ngIf="selectedSound" class="player">
+  <p>{{selectedSound.fileName}}</p>
+  <audio #audioPlayer controls>
+    <source [src]="selectedSound.url" type="audio/mpeg">
+  </audio>
+</div>
